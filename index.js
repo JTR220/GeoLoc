@@ -35,6 +35,17 @@ app.get("/lieux", async (req, res) => {
     }
 });
 
+app.get("/lieuRandom", async (req, res) => {
+    try {
+        const lieux = await Position.find();
+        const ind = Math.floor(Math.random() * lieux.length);
+        res.json(lieux[ind]);
+    } catch (err) {
+        res.status(500).send("Erreur lors de la récupération des lieux");
+    }
+});
+
+
 // Route pour récupérer un lieu par ville
 app.get("/lieu/:ville", async (req, res) => {
     const { ville } = req.params;
